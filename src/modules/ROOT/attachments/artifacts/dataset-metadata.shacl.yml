@@ -61,7 +61,7 @@
   versionInfo:
     '@id': owl:versionInfo
     '@type': xsd:string
-'@id': https://modellen.netbeheernederland.nl/nbnl-data-exchange/dataset-metadata.shacl.jsonld
+'@id': https://modellen.netbeheernederland.nl/nbnl-data-exchange#metadata
 versionIRI: https://modellen.netbeheernederland.nl/nbnl-data-exchange/1.0/dataset-metadata.shacl.jsonld
 versionInfo: '1.0'
 '@type':
