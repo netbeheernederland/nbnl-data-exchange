@@ -15,16 +15,14 @@ Standard which describes how datasets ought to be represented to be exchanged in
 
 '''
 
-[#metadata.small]
+[#metadata]
 --
 Author:: Bart Kleijngeld
 Version:: {page-component-display-version}
 Artifacts::
-[no-bullet]
-* {dataset-metadata-shacl-url}[Dataset Metadata SHACL,window=read-later]
+{dataset-metadata-shacl-url}[Dataset Metadata SHACL,window=read-later]
 See also::
-[no-bullet]
-* https://modellen.netbeheernederland.nl/modeling-guidelines/building-dso-mv[Building the Data Sets :: NBNL Modellen — Modelling Guidelines], a more detailed guide for users.
+https://modellen.netbeheernederland.nl/modeling-guidelines/building-dso-mv[Building the Data Sets :: NBNL Modellen — Modelling Guidelines], a more detailed guide for users.
 --
 
 == Conformance
