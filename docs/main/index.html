@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Building a Dataset</title>
-    <link rel="canonical" href="https://modellen.netbeheernederland.nl/fair-dx/main/index.html">
+    <link rel="canonical" href="http://localhost:8000/main/index.html">
     <meta name="generator" content="Antora 3.2.1">
     <link rel="stylesheet" href="../_/css/site.css">
     <link rel="icon" href="../_/img/favicon.png" type="image/png">
@@ -184,10 +184,10 @@ the metadata lives, or you risk getting false positive results.
 from pyshacl import validate
 
 dataset = Dataset()
-dataset.parse("https://modellen.netbeheernederland.nl/fair-dx/main/_attachments/empty-dataset.example.jsonld", format="json-ld")
+dataset.parse("http://localhost:8000/main/_attachments/empty-dataset.example.jsonld", format="json-ld")
 
 shapes_graph = Graph()
-shapes_graph.parse("https://modellen.netbeheernederland.nl/fair-dx/main/_attachments/dataset-metadata.shacl.jsonld", format="json-ld")
+shapes_graph.parse("http://localhost:8000/main/_attachments/dataset-metadata.shacl.jsonld", format="json-ld")
 
 conforms, results_graph, results_text = validate(dataset.default_graph,
                                                  shacl_graph=shapes_graph,
