@@ -1,6 +1,8 @@
 = NBNL Profile Group Dataset
-
+:dataset-metadata-shacl-url: {site-url}/{page-component-version}/dataset-metadata.shacl.jsonld
 ////
+Convert source Dataset Metadata SHACL (YAML-LD) to JSON-LD:
+
 {{ readFile('modules/ROOT/attachments/artifacts/dataset-metadata.shacl.yml')
      | parseYaml
      | toJson
@@ -8,10 +10,21 @@
 -}}
 ////
 
+[.big]
+Standard which describes how datasets ought to be represented to be exchanged in a FAIR way between Dutch DSOs and other parties.
+
+'''
+
 [#metadata]
 --
 Author:: Bart Kleijngeld
 Version:: {page-component-display-version}
+Artifacts::
+[no-bullet]
+* {dataset-metadata-shacl-url}[Dataset Metadata SHACL,window=read-later]
+See also::
+[no-bullet]
+* https://modellen.netbeheernederland.nl/modeling-guidelines/building-a-dataset.html[Modelling Guidelines - Building a Dataset] which is a more detailed guide for users.
 --
 
 == Anatomy
@@ -73,34 +86,6 @@ Furthermore, the following metadata properties SHOULD be provided by each datase
 
 === Validating metadata
 
-The metadata requirements have been encoded as constraints in the {site-url}/{page-component-version}/dataset-metadata.shacl.jsonld[Dataset Metadata SHACL] which can be used to automatically validate whether datasets satisfy the metadata requirements.
+The metadata requirements have been encoded as constraints in the {dataset-metadata-shacl-url}[Dataset Metadata SHACL] which can be used to automatically validate whether datasets satisfy the metadata requirements.
 
 CAUTION: SHACL validators expect graphs, not RDF datasets. When an RDF dataset is passed as data graph to validate, many validators will use its default graph.
-
-[appendix]
-== Examples
-
-=== Metadata without data
-
-[source,json]
-----
-"@id": "urn:uuid:2d3088c1-2b9a-4cbc-84fa-c0670e0e8ecc",
-"dcterms:issued": {
-  "@value": "2025-12-05T12:34:567Z",
-  "@type": "xsd:date"
-},
-"dcterms:publisher": {
-  "@id": "urn:uuid:4f74c8e2-adb5-4815-9607-eb00fb6a0d55",
-  "dcterms:title": "Liander"
-},
-"dcterms:conformsTo": [
-  {
-    "@id": "https://modellen.netbeheernederland.nl/nbnl-equipment/1.0"
-  }
-],
-"dcterms:references": [
-  {
-    "@id": "urn:uuid:4562ba86-b5e0-470b-8e36-dae55428d77f"
-  }
-]
-----
