@@ -1,9 +1,9 @@
 = NBNL Profile Group Dataset
 ////
-{{ readFile('modules/ROOT/attachments/dataset-metadata.shacl.yml')
+{{ readFile('modules/ROOT/attachments/artifacts/dataset-metadata.shacl.yml')
      | parseYaml
      | toJson
-     | writeFile('modules/ROOT/attachments/dataset-metadata.shacl.jsonld')
+     | writeFile('modules/ROOT/attachments/artifacts/dataset-metadata.shacl.jsonld')
 -}}
 ////
 
