@@ -1,6 +1,13 @@
 '@context':
   '@vocab': http://www.w3.org/ns/shacl#
   adms: http://www.w3.org/ns/adms#
+  dcat: http://www.w3.org/ns/dcat#
+  dcterms: http://purl.org/dc/terms/
+  owl: http://www.w3.org/2002/07/owl#
+  rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+  rdfs: http://www.w3.org/2000/01/rdf-schema#
+  sh: http://www.w3.org/ns/shacl#
+  xsd: http://www.w3.org/2001/XMLSchema#
   classes:
     '@container': '@id'
     '@id': dcterms:hasPart
@@ -8,8 +15,6 @@
     '@type': xsd:boolean
   datatype:
     '@type': '@id'
-  dcat: http://www.w3.org/ns/dcat#
-  dcterms: http://purl.org/dc/terms/
   description:
     '@container': '@language'
     '@id': dcterms:description
@@ -22,6 +27,8 @@
   in:
     '@container': '@list'
     '@type': '@id'
+  label:
+    '@id': rdfs:label
   node:
     '@type': '@id'
   nodeKind:
@@ -29,7 +36,6 @@
   or:
     '@container': '@list'
     '@type': '@id'
-  owl: http://www.w3.org/2002/07/owl#
   path:
     '@type': '@id'
   property:
@@ -44,15 +50,17 @@
     '@index': path
   publisher:
     '@id': dcterms:publisher
-  label:
-    '@id': rdfs:label
-  rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
-  rdfs: http://www.w3.org/2000/01/rdf-schema#
-  sh: http://www.w3.org/ns/shacl#
-  xsd: http://www.w3.org/2001/XMLSchema#
+  seeAlso:
+    '@id': rdfs:seeAlso
   title:
-    '@container': '@language'
     '@id': dcterms:title
+    '@container': '@language'
+  versionIRI:
+    '@id': owl:versionIRI
+    '@type': '@id'
+  versionInfo:
+    '@id': owl:versionInfo
+    '@type': xsd:string
 '@id': https://modellen.netbeheernederland.nl/nbnl-dataset/message-metadata.shacl.jsonld
 versionIRI: https://modellen.netbeheernederland.nl/nbnl-dataset/1.0/message-metadata.shacl.jsonld
 versionInfo: '1.0'
