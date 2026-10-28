@@ -21,7 +21,7 @@ output:
   dir: docs
 ui:
   bundle:
-    url: https://github.com/Netbeheer-Nederland/antora-ui-nbnl/releases/download/1.2/ui-bundle.zip
+    url: https://github.com/netbeheernederland/antora-ui-nbnl/releases/download/1.2/ui-bundle.zip
   default_layout: single-page  # TODO: `standard`
 antora:
   extensions:
