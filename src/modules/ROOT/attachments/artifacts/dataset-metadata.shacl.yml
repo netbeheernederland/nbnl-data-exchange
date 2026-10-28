@@ -69,6 +69,8 @@ versionInfo: '1.0'
   - adms:Asset
   - sh:ShapesGraph
   - owl:Ontology
+imports:
+- https://modellen.netbeheernederland.nl/controlled-vocabularies/market-parties.shacl.jsonld
 classes:
   dcat:Dataset:
     '@type':
@@ -81,19 +83,7 @@ classes:
         minCount: 1
         maxCount: 1
         name: issued
-        description: Date the dataset was issued.
-      dcterms:publisher:
-        minCount: 1
-        maxCount: 1
-        name: publisher
-        description: Publisher of the dataset.
-        node: https://modellen.netbeheernederland.nl/controlled-vocabularies/market-parties#market-partiesShape
-      dcterms:references:
-        name: references
-        description: Other datasets this dataset depends on.
-        or:
-          - datatype: xsd:anyURI
-          - nodeKind: sh:BlankNodeOrIRI
+        description: Date the dataset was issued, i.e. start of the period of its validity.
       dcterms:title:
         maxCount: 1
         name: title
@@ -101,5 +91,21 @@ classes:
         or:
           - datatype: rdf:langString
           - datatype: xsd:string
-imports:
-- https://modellen.netbeheernederland.nl/controlled-vocabularies/market-parties.shacl.jsonld
+      dcterms:publisher:
+        minCount: 1
+        maxCount: 1
+        name: publisher
+        description: The publisher of the dataset.
+        node: https://modellen.netbeheernederland.nl/controlled-vocabularies/market-parties#market-partiesShape
+      dcterms:conformsTo:
+        name: conformsTo
+        description: Reference standards, vocabularies or models this dataset conforms to.
+        or:
+          - datatype: xsd:anyURI
+          - nodeKind: sh:BlankNodeOrIRI
+      dcterms:references:
+        name: references
+        description: Other datasets or data products this dataset references (depends on). For any non-boundary datasets this is the `@id` of the boundary dataset being referred to.
+        or:
+          - datatype: xsd:anyURI
+          - nodeKind: sh:BlankNodeOrIRI

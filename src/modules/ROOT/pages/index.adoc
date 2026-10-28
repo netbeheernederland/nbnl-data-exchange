@@ -66,30 +66,36 @@ WARNING: If the dataset type is not asserted to be `dcat:Dataset`, automated val
 Finally, the following metadata properties SHOULD be provided by each dataset:
 
 |===
-| Label | IRI | Type | Multivalued | Description
+| Label | IRI | Type | Allowed cardinality | Description
 
 | Issued
 | `dcterms:issued`
 | `xsd:date`
-| no
+| 1
 | Date the dataset was issued, i.e. start of the period of its validity.
+
+| Title
+| `dcterms:title`
+| `xsd:string` or `xsd:langString`
+| 0..1
+| Title of the dataset.
 
 | Publisher
 | `dcterms:publisher`
 | IRI from https://modellen.netbeheernederland.nl/controlled-vocabularies/market-parties[Market Parties]
-| no
+| 1
 | The publisher of the dataset.
 
 | Conforms to
 | `dcterms:conformsTo`
 | IRI or `xsd:anyURI`
-| yes
-| Standards the dataset conforms. This SHOULD at least include the (version of the) profile or data model this data complies with.
+| 0..n
+| Reference standards, vocabularies or models this dataset conforms to.
 
 | References
 | `dcterms:references`
 | IRI
-| yes
+| 0..n
 | Other datasets or data products this dataset references (depends on). For any non-boundary datasets this is the `@id` of the boundary dataset being referred to.
 |===
 
@@ -98,6 +104,18 @@ Finally, the following metadata properties SHOULD be provided by each dataset:
 The metadata requirements have been encoded as constraints in the {dataset-metadata-shacl-url}[Dataset Metadata SHACL] which can be used to automatically validate whether datasets satisfy the metadata requirements.
 
 CAUTION: SHACL validators expect graphs, not RDF datasets. When an RDF dataset is passed as data graph to validate, many validators will use its default graph.
+
+[appendix]
+== Example: Empty dataset
+
+Here are the contents of xref:attachment$empty-dataset.example.jsonld[the empty dataset example (JSON-LD)]:
+
+====
+[source,json]
+----
+include::attachment$empty-dataset.example.jsonld[]
+----
+====
 
 [bibliography]
 == References
