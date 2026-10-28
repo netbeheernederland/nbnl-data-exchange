@@ -1,5 +1,5 @@
 site:
-  url: https://modellen.netbeheernederland.nl/nbnl-dataset
+  url: https://modellen.netbeheernederland.nl/nbnl-data-exchange
   start_page: ROOT::index.adoc
 content:
   sources:

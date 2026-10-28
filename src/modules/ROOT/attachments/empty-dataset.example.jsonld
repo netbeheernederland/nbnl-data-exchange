@@ -20,7 +20,7 @@
       "@id": "https://modellen.netbeheernederland.nl/nbnl-equipment/1.0"
     },
     {
-      "@id": "https://modellen.netbeheernederland.nl/nbnl-dataset/1.0"
+      "@id": "https://modellen.netbeheernederland.nl/nbnl-data-exchange/1.0"
     }
   ],
   "dcterms:references": [
