@@ -53,7 +53,9 @@
   title:
     '@container': '@language'
     '@id': dcterms:title
-'@id': https://modellen.netbeheernederland.nl/fair-dx/0.1/message-metadata.shacl.jsonld  # TODO: Let post-processor add this. Valid RDF as blank node, but then version is always correct.
+'@id': https://modellen.netbeheernederland.nl/nbnl-dataset/message-metadata.shacl.jsonld
+versionIRI: https://modellen.netbeheernederland.nl/nbnl-dataset/1.0/message-metadata.shacl.jsonld
+versionInfo: '1.0'
 '@type':
   - dcat:Dataset
   - adms:Asset

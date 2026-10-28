@@ -1,13 +1,13 @@
 = NBNL Profile Group Dataset
 :dataset-metadata-shacl-url: {site-url}/{page-component-version}/dataset-metadata.shacl.jsonld
+
 ////
 Convert source Dataset Metadata SHACL (YAML-LD) to JSON-LD:
-
-{{ readFile('modules/ROOT/attachments/artifacts/dataset-metadata.shacl.yml')
+{{- readFile('modules/ROOT/attachments/artifacts/dataset-metadata.shacl.yml')
      | parseYaml
      | toJson
      | writeFile('modules/ROOT/attachments/artifacts/dataset-metadata.shacl.jsonld')
--}}
+}}
 ////
 
 [.big]
@@ -24,7 +24,7 @@ Artifacts::
 * {dataset-metadata-shacl-url}[Dataset Metadata SHACL,window=read-later]
 See also::
 [no-bullet]
-* https://modellen.netbeheernederland.nl/modeling-guidelines/building-a-dataset.html[Modelling Guidelines - Building a Dataset] which is a more detailed guide for users.
+* https://modellen.netbeheernederland.nl/modeling-guidelines/building-dso-mv[Building the Data Sets :: NBNL Modellen — Modelling Guidelines], a more detailed guide for users.
 --
 
 == Anatomy
@@ -38,14 +38,13 @@ The RDF dataset SHOULD be serialized as a _JSON-LD document_.
 
 .Anatomy of JSON-LD document representing the dataset
 [source,json]
-....
-"@id": <1>,
-<2>,
+----
+"@id": ..., <1>
+<2>
 "@graph": [
-    <3>
+    ... <3>
 ]
-....
-
+----
 <1> The IRI of the dataset.
 <2> Metadata about the dataset. These statements are contained in the default graph.
 <3> The data graph object. These statements are contained in the data graph.
@@ -84,7 +83,7 @@ Furthermore, the following metadata properties SHOULD be provided by each datase
 | Other datasets or data products this dataset references (depends on). For any non-boundary datasets this is the `@id` of the boundary dataset being referred to.
 |===
 
-=== Validating metadata
+=== Validation
 
 The metadata requirements have been encoded as constraints in the {dataset-metadata-shacl-url}[Dataset Metadata SHACL] which can be used to automatically validate whether datasets satisfy the metadata requirements.
 
