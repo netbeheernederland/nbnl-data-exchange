@@ -1,5 +1,6 @@
 site:
   url: https://modellen.netbeheernederland.nl/nbnl-dataset
+  title: Ka
   start_page: ROOT::index.adoc
 content:
   sources:

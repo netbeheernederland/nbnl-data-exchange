@@ -1,4 +1,4 @@
-= NBNL Profile Group Dataset
+= NBNL Profile Group Data Exchange Standard
 :dataset-metadata-shacl-url: {site-url}/{page-component-version}/dataset-metadata.shacl.jsonld
 
 ////
