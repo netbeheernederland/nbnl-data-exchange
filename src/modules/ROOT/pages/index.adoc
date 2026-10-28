@@ -15,7 +15,7 @@ Standard which describes how datasets ought to be represented to be exchanged in
 
 '''
 
-[#metadata]
+[#metadata.small]
 --
 Author:: Bart Kleijngeld
 Version:: {page-component-display-version}
