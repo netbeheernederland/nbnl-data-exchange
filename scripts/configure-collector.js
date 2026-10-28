@@ -1,7 +1,4 @@
-const SRC_DIR = 'src';
-const BUILT_DIR = 'built';
-
-
+const MAIN_DIR = process.env.PWD
 module.exports.register = function () {
   this.once("contentAggregated", ({ contentAggregate }) => {
     for (const { origins } of contentAggregate) {
@@ -10,22 +7,15 @@ module.exports.register = function () {
           {
             run:
             {
-              command: "scripts/render-component-version.js",
-              dir: process.env.PWD,
+              command: `${MAIN_DIR}/scripts/render-component-version.js`,
               env: [
-                {
-                  "name": "SRC_DIR",
-                  "value": SRC_DIR
-                },
-                {
-                  "name": "BUILT_DIR",
-                  "value": BUILT_DIR
-                }
+                { name: "SRC_DIR", value: './src' },
+                { name: "BUILT_DIR", value: './built' },
               ]
             },
             scan: {
               clean: true,
-              dir: BUILT_DIR
+                dir: 'built'
             }
           }
         ]
