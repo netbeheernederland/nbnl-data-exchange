@@ -1,5 +1,5 @@
 site:
-  url: https://modellen.netbeheernederland.nl/fair-dx
+  url: https://modellen.netbeheernederland.nl/nbnl-dataset
   start_page: ROOT::index.adoc
 content:
   sources:
@@ -28,4 +28,6 @@ antora:
     - require: 'scripts/configure-collector.js'
     - require: '@antora/collector-extension'
     - require: 'scripts/post-process-versions.js'
+    - require: 'scripts/post-process-site.js'
+      artifacts_dir: artifacts
     - require: '@antora/lunr-extension'
