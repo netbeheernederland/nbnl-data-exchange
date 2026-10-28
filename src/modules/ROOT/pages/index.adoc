@@ -44,20 +44,26 @@ The RDF dataset SHOULD be serialized as a _JSON-LD document_.
 [source,json]
 ----
 "@id": ..., <1>
-<2>
+"@type": "dcat:Dataset", <2>
+<3>
 "@graph": [
-    ... <3>
+    ... <4>
 ]
 ----
 <1> The IRI of the dataset.
-<2> Metadata about the dataset. These statements are contained in the default graph.
-<3> The data graph object. These statements are contained in the data graph.
+<2> The type of the dataset is `dcat:Dataset`.
+<3> Metadata about the dataset. These statements are contained in the default graph.
+<4> The data graph object. These statements are contained in the data graph.
 
 == Metadata
 
-The IRI of the dataset -- i.e. the value of the top-level `@id` -- is RECOMMENDED to be a UUIDv4 encoded as URN using the `uuid` namespace.
+A dataset MUST declare an IRI which dentifies it. This IRI is RECOMMENDED to be a URN wrapping a UUIDv4 using the `uuid` namespace.
 
-Furthermore, the following metadata properties SHOULD be provided by each dataset:
+Furthermore, a dataset MUST assert its type to be `dcat:Dataset`.
+
+WARNING: If the dataset type is not asserted to be `dcat:Dataset`, automated validation will not be able to target the data properly and yield false positive results.
+
+Finally, the following metadata properties SHOULD be provided by each dataset:
 
 |===
 | Label | IRI | Type | Multivalued | Description
