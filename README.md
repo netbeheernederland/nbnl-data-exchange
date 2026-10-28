@@ -1,6 +1,6 @@
-# NBNL Dataset
+# NBNL Profile Group Data Exchange Standard
 
-Specification of what is expected of a dataset.
+Standard which describes how datasets ought to be represented to be exchanged in a FAIR way between Dutch DSOs and other parties.
 
 ## For developers
 
