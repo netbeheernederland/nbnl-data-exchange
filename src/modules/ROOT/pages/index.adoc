@@ -16,7 +16,7 @@ Standard which describes how datasets ought to be represented to be exchanged in
 '''
 
 :building-the-datasets-title: Building the Data Sets :: NBNL Modellen — Modelling Guidelines
-[#metadata]
+[#doc-metadata]
 --
 Author:: Bart Kleijngeld
 Version:: {page-component-display-version}
@@ -55,6 +55,7 @@ The RDF dataset SHOULD be serialized as a _JSON-LD document_.
 <3> Metadata about the dataset. These statements are contained in the default graph.
 <4> The data graph object. These statements are contained in the data graph.
 
+[#metadata]
 == Metadata
 
 A dataset MUST declare an IRI which dentifies it. This IRI is RECOMMENDED to be a URN wrapping a UUIDv4 using the `uuid` namespace.
