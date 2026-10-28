@@ -1,7 +1,5 @@
-= Building a Dataset
+= NBNL Profile Group Dataset
 ////
-Convert the SHACL/YAML-LD to SHACL/JSON-LD and write file:
-
 {{ readFile('modules/ROOT/attachments/dataset-metadata.shacl.yml')
      | parseYaml
      | toJson
@@ -9,95 +7,93 @@ Convert the SHACL/YAML-LD to SHACL/JSON-LD and write file:
 -}}
 ////
 
-This document explains the structure of the datasets and how instances interact across
-datasets.
+== Anatomy
 
-CAUTION: Generate your own mRIDs using _UUID4_
+Each *dataset* MUST be encoded as an _RDF dataset_ which contains exactly two graphs:
 
-All JSON-LD examples below are just that: examples. Do **not** reuse mRIDs and IRIs unless
-retrieved from the https://modellen.netbeheernederland.nl/object-register[NBNL Object Register] or from https://modellen.netbeheernederland.nl/controlled-vocabularies[Controlled Vocabularies].
+* a _named graph_ containing the data, which will be referred to as the *data graph*
+* the _default graph_ containing the dataset (meta)data
 
-== Background
+The RDF dataset SHOULD be serialized as a _JSON-LD document_.
 
-Each _System Operator_ provides a dataset containing the connectivity for a
-specific part of the electrical grid (HV, MV and LV). The High Voltage (HV)
-dataset defines exchange points between TSO and DSOs. This dataset is also
-referred to as the _boundary dataset_.
+.Anatomy of JSON-LD document representing the dataset
+[source,json]
+....
+"@id": <1>,
+<2>,
+"@graph": [
+    <3>
+]
+....
 
-A singular dataset (with the exception of the boundary dataset) does not
-validate against the provided SHACL on its own; both boundary dataset and
-system operator specific dataset must be validated together.
+<1> The IRI of the dataset.
+<2> Metadata about the dataset. These statements are contained in the default graph.
+<3> The data graph object. These statements are contained in the data graph.
 
 == Metadata
 
-Each dataset requires metadata to keep track of issuer, issuance date, schema
-and dependencies.
+The IRI of the dataset -- i.e. the value of the top-level `@id` -- is RECOMMENDED to be a UUIDv4 encoded as URN using the `uuid` namespace.
 
-.Example metadata in JSON-LD
+Furthermore, the following metadata properties SHOULD be provided by each dataset:
+
+|===
+| Label | IRI | Type | Multivalued | Description
+
+| Issued
+| `dcterms:issued`
+| `xsd:date`
+| no
+| Date the dataset was issued, i.e. start of the period of its validity.
+
+| Publisher
+| `dcterms:publisher`
+| IRI from https://modellen.netbeheernederland.nl/controlled-vocabularies/market-parties[Market Parties]
+| no
+| The publisher of the dataset.
+
+| Conforms to
+| `dcterms:conformsTo`
+| IRI or `xsd:anyURI`
+| yes
+| Standards the dataset conforms. This SHOULD at least include the (version of the) profile or data model this data complies with.
+
+| References
+| `dcterms:references`
+| IRI
+| yes
+| Other datasets or data products this dataset references (depends on). For any non-boundary datasets this is the `@id` of the boundary dataset being referred to.
+|===
+
+=== Validating metadata
+
+The metadata requirements have been encoded as constraints in the xref:[Dataset Metadata SHACL] which can be used to automatically validate whether datasets satisfy the metadata requirements.
+
+CAUTION: SHACL validators expect graphs, not RDF datasets. When an RDF dataset is passed as data graph to validate, many validators will use its default graph.
+
+[appendix]
+== Examples
+
+=== Metadata without data
+
 [source,json]
 ----
-"@id": "urn:uuid:2d3088c1-2b9a-4cbc-84fa-c0670e0e8ecc", <1>
+"@id": "urn:uuid:2d3088c1-2b9a-4cbc-84fa-c0670e0e8ecc",
 "dcterms:issued": {
-  "@value": "2025-12-05T12:34:567Z", <2>
+  "@value": "2025-12-05T12:34:567Z",
   "@type": "xsd:date"
 },
 "dcterms:publisher": {
-  "@id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/market-parties#LIANDER", <3>
+  "@id": "urn:uuid:4f74c8e2-adb5-4815-9607-eb00fb6a0d55",
+  "dcterms:title": "Liander"
 },
 "dcterms:conformsTo": [
   {
-    "@id": "https://modellen.netbeheernederland.nl/nbnl-equipment/1.0" <4>
+    "@id": "https://modellen.netbeheernederland.nl/nbnl-equipment/1.0"
   }
 ],
 "dcterms:references": [
   {
-    "@id": "urn:uuid:4562ba86-b5e0-470b-8e36-dae55428d77f" <5>
+    "@id": "urn:uuid:4562ba86-b5e0-470b-8e36-dae55428d77f"
   }
 ]
 ----
-
-The following information is required:
-
-<1> unique identifier for this dataset. Use a generated UUID;
-<2> issuance data, start of the validity period for this dataset;
-<3> publisher of the dataset. Use an IRI from the https://modellen.netbeheernederland.nl/controlled-vocabularies/market-parties[Market Parties] controlled vocabulary;
-<4> schema to validate the dataset against. Verify usage of the correct version;
-<5> any datasets this dataset is dependant on. For any non-boundary datasets,
-this is the _@id_ of the boundary dataset referred to.
-
-=== Validation
-
-Dataset metadata can be validated automatically using the
-xref::attachment$dataset-metadata.shacl.jsonld[Dataset Metadata SHACL].
-
-WARNING: Make sure you validate against the default graph of the JSON-LD which is where
-the metadata lives, or you risk getting false positive results.
-
-[%collapsible]
-.Example: Validating dataset metadata using PySHACL
-====
-
-Let's use the xref:attachment$dataset-metadata.shacl.jsonld[Dataset Metadata SHACL] to validate the xref:attachment$empty-dataset.example.jsonld[empty dataset example].
-
-[source,python,subs=+attributes]
-....
-from rdflib import Dataset, Graph
-from pyshacl import validate
-
-dataset = Dataset()
-dataset.parse("{site-url}/{page-component-version}/_attachments/empty-dataset.example.jsonld", format="json-ld")
-
-shapes_graph = Graph()
-shapes_graph.parse("{site-url}/{page-component-version}/_attachments/dataset-metadata.shacl.jsonld", format="json-ld")
-
-conforms, results_graph, results_text = validate(dataset.default_graph,
-                                                 shacl_graph=shapes_graph,
-                                                 do_owl_imports=True)
-....
-====
-
-.For modellers
-[CAUTION]
-Modellers might be tempted to import the _Dataset Metadata SHACL_ in the SHACL
-data model their building. This will not work though, because data and its
-metadata live in different graphs.

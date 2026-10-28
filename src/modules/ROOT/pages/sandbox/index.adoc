@@ -1,0 +1,103 @@
+= Building a Dataset
+////
+Convert the SHACL/YAML-LD to SHACL/JSON-LD and write file:
+
+{{ readFile('modules/ROOT/attachments/dataset-metadata.shacl.yml')
+     | parseYaml
+     | toJson
+     | writeFile('modules/ROOT/attachments/dataset-metadata.shacl.jsonld')
+-}}
+////
+
+This document explains the structure of the datasets and how instances interact across
+datasets.
+
+CAUTION: Generate your own mRIDs using _UUID4_
+
+All JSON-LD examples below are just that: examples. Do **not** reuse mRIDs and IRIs unless
+retrieved from the https://modellen.netbeheernederland.nl/object-register[NBNL Object Register] or from https://modellen.netbeheernederland.nl/controlled-vocabularies[Controlled Vocabularies].
+
+== Background
+
+Each _System Operator_ provides a dataset containing the connectivity for a
+specific part of the electrical grid (HV, MV and LV). The High Voltage (HV)
+dataset defines exchange points between TSO and DSOs. This dataset is also
+referred to as the _boundary dataset_.
+
+A singular dataset (with the exception of the boundary dataset) does not
+validate against the provided SHACL on its own; both boundary dataset and
+system operator specific dataset must be validated together.
+
+== Metadata
+
+Each dataset requires metadata to keep track of issuer, issuance date, schema
+and dependencies.
+
+.Example metadata in JSON-LD
+[source,json]
+----
+"@id": "urn:uuid:2d3088c1-2b9a-4cbc-84fa-c0670e0e8ecc", <1>
+"dcterms:issued": {
+  "@value": "2025-12-05T12:34:567Z", <2>
+  "@type": "xsd:date"
+},
+"dcterms:publisher": {
+  "@id": "https://modellen.netbeheernederland.nl/controlled-vocabularies/market-parties#LIANDER", <3>
+},
+"dcterms:conformsTo": [
+  {
+    "@id": "https://modellen.netbeheernederland.nl/nbnl-equipment/1.0" <4>
+  }
+],
+"dcterms:references": [
+  {
+    "@id": "urn:uuid:4562ba86-b5e0-470b-8e36-dae55428d77f" <5>
+  }
+]
+----
+
+The following information is required:
+
+<1> unique identifier for this dataset. Use a generated UUID;
+<2> issuance data, start of the validity period for this dataset;
+<3> publisher of the dataset. Use an IRI from the https://modellen.netbeheernederland.nl/controlled-vocabularies/market-parties[Market Parties] controlled vocabulary;
+<4> schema to validate the dataset against. Verify usage of the correct version;
+<5> any datasets this dataset is dependant on. For any non-boundary datasets,
+this is the _@id_ of the boundary dataset referred to.
+
+=== Validation
+
+Dataset metadata can be validated automatically using the
+xref::attachment$dataset-metadata.shacl.jsonld[Dataset Metadata SHACL].
+
+WARNING: Make sure you validate against the default graph of the JSON-LD which is where
+the metadata lives, or you risk getting false positive results.
+
+[%collapsible]
+.Example: Validating dataset metadata using PySHACL
+====
+
+Let's use the xref:attachment$dataset-metadata.shacl.jsonld[Dataset Metadata SHACL] to validate the xref:attachment$empty-dataset.example.jsonld[empty dataset example].
+
+[source,python,subs=+attributes]
+....
+from rdflib import Dataset, Graph
+from pyshacl import validate
+
+dataset = Dataset()
+dataset.parse("{site-url}/{page-component-version}/_attachments/empty-dataset.example.jsonld", format="json-ld")
+
+shapes_graph = Graph()
+shapes_graph.parse("{site-url}/{page-component-version}/_attachments/dataset-metadata.shacl.jsonld", format="json-ld")
+
+conforms, results_graph, results_text = validate(dataset.default_graph,
+                                                 shacl_graph=shapes_graph,
+                                                 do_owl_imports=True)
+....
+====
+
+.For modellers
+[CAUTION]
+Modellers might be tempted to import the _Dataset Metadata SHACL_ in the SHACL
+data model their building. This will not work though, because data and its
+metadata live in different graphs.

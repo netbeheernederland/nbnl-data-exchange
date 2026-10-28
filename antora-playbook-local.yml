@@ -24,4 +24,6 @@ antora:
     - require: 'scripts/configure-collector.js'
     - require: '@antora/collector-extension'
     - require: 'scripts/post-process-versions.js'
+    - require: 'scripts/post-process-site.js'
+      artifacts_dir: artifacts
     - require: '@antora/lunr-extension'
