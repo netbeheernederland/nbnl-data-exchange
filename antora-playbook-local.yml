@@ -15,8 +15,6 @@ asciidoc:
 output:
   clean: true
   dir: docs
-urls:
-  latest_version_segment: ''
 ui:
   bundle:
     url: https://github.com/netbeheernederland/antora-ui-nbnl/releases/download/1.2/ui-bundle.zip

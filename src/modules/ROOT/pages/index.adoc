@@ -27,6 +27,11 @@ See also::
 * https://modellen.netbeheernederland.nl/modeling-guidelines/building-dso-mv[Building the Data Sets :: NBNL Modellen — Modelling Guidelines], a more detailed guide for users.
 --
 
+== Conformance
+The key words "MUST", MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this document are to be interpreted as described in <<RFC2119>>.
+
+For recommendations -- i.e. "SHOULD (NOT)" and "(NOT) RECOMMENDED" -- the principle of https://en.wikipedia.org/wiki/Comply_or_explain["comply or explain"] applies: not complying is allowed but requires explaining why.
+
 == Anatomy
 
 Each *dataset* MUST be encoded as an _RDF dataset_ which contains exactly two graphs:
@@ -88,3 +93,8 @@ Furthermore, the following metadata properties SHOULD be provided by each datase
 The metadata requirements have been encoded as constraints in the {dataset-metadata-shacl-url}[Dataset Metadata SHACL] which can be used to automatically validate whether datasets satisfy the metadata requirements.
 
 CAUTION: SHACL validators expect graphs, not RDF datasets. When an RDF dataset is passed as data graph to validate, many validators will use its default graph.
+
+[bibliography]
+== References
+
+* [[[RFC2119]]] S. Bradner. 1997. https://www.rfc-editor.org/rfc/rfc2119[Key words for use in RFCs to Indicate Requirement Levels].
