@@ -15,6 +15,7 @@ Standard which describes how datasets ought to be represented to be exchanged in
 
 '''
 
+:building-the-datasets-title: Building the Data Sets :: NBNL Modellen — Modelling Guidelines
 [#metadata]
 --
 Author:: Bart Kleijngeld
@@ -22,7 +23,7 @@ Version:: {page-component-display-version}
 Artifacts::
 {dataset-metadata-shacl-url}[Dataset Metadata SHACL,window=read-later]
 See also::
-https://modellen.netbeheernederland.nl/modeling-guidelines/building-dso-mv[Building the Data Sets :: NBNL Modellen — Modelling Guidelines], a more detailed guide for users.
+https://modellen.netbeheernederland.nl/modeling-guidelines/building-dso-mv[{building-the-datasets-title}], a more detailed guide for users.
 --
 
 == Conformance
